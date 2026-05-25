@@ -1,0 +1,126 @@
+server:
+  port: 6089
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+spring:
+  application:
+    name: tides-ai
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    servlet:
+      load-on-startup: 1
+    jackson:
+      time-zone: GMT+8
+      date-format: yyyy-MM-dd HH:mm:ss
+      generator:
+        WRITE_NUMBERS_AS_STRINGS: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tides_ai?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowPublicKeyRetrieval=true&allowMultiQueries=true&useServerPrepStmts=false
+    username: root
+    password: 123456
+  ai:
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
+            platform: mariadb
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: deepseek-r1:7b
+    openai:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode
+      api-key: sk-03df1ae4582949ea835856cd7422d737
+      chat:
+        options:
+          model: qwen3.5-flash
+      embedding:
+        options:
+          model: text-embedding-v3
+          dimensions: 1024
+    deepseek:
+      base-url: https://api.deepseek.com
+      api-key: sk-12c17170a3194411bd59e1b5b64afc8e
+      chat:
+        options:
+          model: deepseek-chat
+    # stdio 和 sse 两种模式不能同时使用，使用一种必须把另一种注释掉
+#    mcp:
+#      client:
+#        stdio:
+#          servers-configuration: classpath:mcp-servers.json
+#        sse:
+#          connections:
+#            tides-log:
+#              url: http://localhost:8085
+#            tides-metrics:
+#              url: http://localhost:8086
+easy-es:
+  #默认为true,若为false则认为不启用本框架
+  enable: true
+  # es的连接地址,必须含端口
+  address : common-framework.com.cn:9200
+  #账号,若无 则可省略此行配置
+  username: elastic
+  #密码,若无 则可省略此行配置
+  password: zxc321
+  global-config:
+    db-config:
+      #索引前缀
+      index-prefix: ${prefix.distinction.name:tides}-
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      logic-delete-field: status
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    local-cache-scope: statement  
+management:
+  metrics:
+    tags:
+      application: tides-ai
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    elasticsearch:
+      enabled: false
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+# AI可观测性配置 - 模型价格（单位：元/1K tokens）
+# 参考价格，请以各厂商官网为准
+ai:
+  observability:
+    pricing:
+      deepseek-chat:
+        input: 0.001
+        output: 0.002
+      qwen-max-latest:
+        input: 0.02
+        output: 0.06
+      gpt-4:
+        input: 0.21
+        output: 0.42
+      "[gpt-3.5-turbo]":
+        input: 0.0035
+        output: 0.014
+      "qwen3.5-flash":
+        input: 0.2
+        output: 0.1

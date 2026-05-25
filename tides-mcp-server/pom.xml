@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.javaup</groupId>
+        <artifactId>tides-ai</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+
+    <artifactId>tides-mcp-server</artifactId>
+    <packaging>pom</packaging>
+
+    <name>tides-mcp-server</name>
+    <description>潮声 MCP 服务</description>
+
+    <modules>
+        <module>tides-mcp-log-service</module>
+        <module>tides-mcp-metrics-service</module>
+    </modules>
+</project>

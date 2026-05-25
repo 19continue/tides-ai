@@ -1,0 +1,4 @@
+org.javaup.ai.config.TidesAiAutoConfiguration
+org.javaup.ai.config.TidesRagAiAutoConfiguration
+org.javaup.ai.config.WebMvcAutoConfiguration
+org.javaup.ai.mybatisplus.MybatisPlusAutoConfiguration
