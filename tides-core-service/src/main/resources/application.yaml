@@ -38,7 +38,7 @@ spring:
         model: deepseek-r1:7b
     openai:
       base-url: https://dashscope.aliyuncs.com/compatible-mode
-      api-key: 
+      api-key: xxx
       chat:
         options:
           model: qwen3.5-flash
@@ -48,7 +48,7 @@ spring:
           dimensions: 1024
     deepseek:
       base-url: https://api.deepseek.com
-      api-key: sk-12c17170a3194411bd59e1b5b64afc8e
+      api-key: xxx
       chat:
         options:
           model: deepseek-chat
